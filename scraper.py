@@ -2,6 +2,7 @@ import re
 import logging
 from dataclasses import dataclass
 from typing import List, Optional
+import db
 from playwright.sync_api import sync_playwright, Locator
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -90,4 +91,4 @@ if __name__ == "__main__":
     )
     
     for p in results:
-        print(f"[{p.item_id}] {p.title} -> Rs. {p.price_numeric}")
+        db.insert_data(p.item_id, p.title, p.url, p.price_numeric)
