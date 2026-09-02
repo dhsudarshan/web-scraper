@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: tracker
+      POSTGRES_PASSWORD: trackerpass
+      POSTGRES_DB: pricedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  scraper:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://tracker:trackerpass@db:5432/pricedb
+    command: python scraper.py
+
+volumes:
+  postgres_data:

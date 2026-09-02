@@ -1,10 +1,9 @@
 import os
 from typing import Optional
 import psycopg2
-from scraper import Product
 
 DATABASE_URL = os.getenv(
-    "DATABASE_URL", "postgresql://priceuser:securepassword123@localhost:5432/pricedb"
+    "DATABASE_URL", "postgresql://tracker:trackerpass@db:5432/pricedb"
 )
 
 
