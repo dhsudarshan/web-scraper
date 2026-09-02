@@ -30,7 +30,8 @@ def init_db():
     with conn.cursor() as cursor:
       cursor.execute("""
                 CREATE TABLE IF NOT EXISTS products (
-                    item_id VARCHAR(50) PRIMARY KEY,
+                    id SERIAL PRIMARY KEY
+                    item_id VARCHAR(50) UNIQUE NOT NULL,
                     title TEXT NOT NULL,
                     url TEXT NOT NULL
                 );
@@ -38,7 +39,7 @@ def init_db():
       cursor.execute("""
                 CREATE TABLE IF NOT EXISTS price_history (
                     id SERIAL PRIMARY KEY,
-                    item_id VARCHAR(50) REFERENCES products(item_id),
+                    item_id VARCHAR(50) REFERENCES products(id) ON DELETE CASCADE,
                     price INT NOT NULL,
                     recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
